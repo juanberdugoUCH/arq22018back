@@ -5,4 +5,4 @@
  * @author Gonzalo
  *
  */
-package BL;
+package controlador;
