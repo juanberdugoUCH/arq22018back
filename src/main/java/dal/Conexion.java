@@ -1,4 +1,4 @@
-package DAL;
+package dal;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,12 +9,6 @@ public class Conexion {
    public Connection obtener(){
       if (cnx == null) {
     	  try{
-	            try {
-					Class.forName("com.mysql.cj.jdbc.Driver");
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 	            cnx = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/ravenbunny", "ravenbunny", "ravenbunny");
 	            System.out.println("CONECTADO");
             }catch (SQLException ex) {
