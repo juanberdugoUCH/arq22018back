@@ -1,14 +1,9 @@
 package entidades;
 
 public class Contrato {
-	private int numero;
+	private int idFamily;
 
-	public int getNumero() {
-		return numero;
+	public Contrato() {
+		
 	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-	
 }

@@ -5,21 +5,21 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 public class Conexion {
-   private Connection cnx = null;
+   private Connection cnn = null;
    public Connection obtener(){
-      if (cnx == null) {
+      if (cnn == null) {
     	  try{
-	            cnx = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/ravenbunny", "ravenbunny", "ravenbunny");
-	            System.out.println("CONECTADO");
+	            cnn = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/ravenbunny", "ravenbunny", "ravenbunny");
+	            System.out.println("Connected");
             }catch (SQLException ex) {
         	 System.out.print(ex);
         	 }
       }
-      return cnx;
+      return cnn;
   }
    public void cerrar() throws SQLException {
-      if (cnx != null) {
-         cnx.close();
+      if (cnn != null) {
+         cnn.close();
       }
    }
 }
