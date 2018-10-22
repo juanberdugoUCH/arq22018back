@@ -4,25 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import entidades.Nivel;
+import entidades.Level;
 import java.util.ArrayList;
-import java.util.LinkedList;
-public class LevelRepository {
-    private final String tabla = "Level";
 
-   public ArrayList<Nivel> recuperarNivel(Connection conexion) throws SQLException { //Lo habia echo con LinkedList (lista doblemente enlazada)
-      ArrayList<Nivel> listaNiveles = new ArrayList<Nivel>();
+public class LevelRepository {
+    private final String table = "Level";
+
+   public ArrayList<Level> recuperarNivel(Connection conexion) throws SQLException {
+      ArrayList<Level> levelList = new ArrayList<Level>();
       try{
-         PreparedStatement consulta = conexion.prepareStatement("SELECT * FROM " + this.tabla);
-         ResultSet resultado = consulta.executeQuery();
-         while(resultado.next()){
-            int number = Integer.parseInt(resultado.getString("number")) ;
-            int superiorLimit = Integer.parseInt("superiorLimit");
-            int inferiorLimit = Integer.parseInt("inferiorLimit");
-            int bond = Integer.parseInt("bond");
+         PreparedStatement query = conexion.prepareStatement("SELECT * FROM " + this.table);
+         ResultSet result = query.executeQuery();
+         while(result.next()){
+        	String pjName = result.getString("pjName");
+            int level = Integer.parseInt(result.getString("number")) ;
+            int superiorLimit = Integer.parseInt(result.getString("superiorLimit"));
+            int inferiorLimit = Integer.parseInt(result.getString("inferiorLimit"));
+            int bond = Integer.parseInt(result.getString("bond"));
+            int currentPoints = Integer.parseInt(result.getString("currentPoints"));
             
-            Nivel nivel = new Nivel(number,superiorLimit,inferiorLimit,bond);
-            listaNiveles.add(nivel);
+            Level nivel = new Level(pjName,level,superiorLimit,inferiorLimit,bond,currentPoints);
+            levelList.add(nivel);
             System.out.println("SELECT Realizado - Objeto producto realizado de forma exitosa.");
          }
          /*resultado.close();
@@ -31,6 +33,6 @@ public class LevelRepository {
       }catch(SQLException ex){
          throw new SQLException(ex);
       }
-      return listaNiveles;
+      return levelList;
    }       
 }
