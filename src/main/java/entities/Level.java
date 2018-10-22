@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 public class Level {
 	private String pjName;

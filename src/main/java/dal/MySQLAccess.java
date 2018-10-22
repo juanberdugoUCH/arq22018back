@@ -4,9 +4,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
 
-public class Conexion {
+public class MySQLAccess {
    private Connection cnn = null;
-   public Connection obtener(){
+   public Connection getConnection(){
       if (cnn == null) {
     	  try{
 	            cnn = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/ravenbunny", "ravenbunny", "ravenbunny");
@@ -17,7 +17,7 @@ public class Conexion {
       }
       return cnn;
   }
-   public void cerrar() throws SQLException {
+   public void closeConnection() throws SQLException {
       if (cnn != null) {
          cnn.close();
       }

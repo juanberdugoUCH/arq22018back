@@ -4,40 +4,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import entidades.Contrato;
+import entities.Contract;
 
 public class ContractRespository {
 	private final String table = "Contract";
-	String pattern = "dd/mm/yyyy";
-    SimpleDateFormat format = new SimpleDateFormat(pattern);
+    private String pattern = "dd/mm/yyyy";
+    private SimpleDateFormat format = new SimpleDateFormat(pattern);
 	
-	public ArrayList<Contrato> recuperarNivel(Connection conexion) throws SQLException { //Lo habia echo con LinkedList (lista doblemente enlazada)
-		ArrayList<Contrato> listContracts = new ArrayList<Contrato>();
+	public ArrayList<Contract> getContracts(Connection cnx) throws SQLException {
+		ArrayList<Contract> listContracts = new ArrayList<Contract>();
 	      try{
-	         PreparedStatement consulta = conexion.prepareStatement("SELECT * FROM " + this.table);
-	         ResultSet resultado = consulta.executeQuery();
-	         while(resultado.next()){
-	            int idFamily = Integer.parseInt(resultado.getString("idFamily")) ;
-	            double salary = Integer.parseInt("salary");
-	            //Date validSince = format.parse(resultado.getString("validSince"));
-	            //Date validUntil = format.parse(resultado.getString("validUntil"));
-	            double compensation = Integer.parseInt("compensation"); 
-	            
-	            
-	            Contrato contract = new Contrato();
+	         PreparedStatement query = cnx.prepareStatement("SELECT * FROM " + this.table);
+	         ResultSet result = query.executeQuery();
+	         while(result.next()){
+	            int idFamily = Integer.parseInt(result.getNString("idFamily")) ;
+	            double salary = Integer.parseInt(result.getNString("salary"));
+	            Date validSince = format.parse(result.getNString("validSince"));
+	            Date validUntil = format.parse(result.getNString("validUntil"));
+	            double compensation = Integer.parseInt(result.getNString("compensation"));
+
+	            Contract contract = new Contract(idFamily, salary, validSince, validUntil, compensation);
 	            listContracts.add(contract);
-	            System.out.println("SELECT Realizado - Objeto producto realizado de forma exitosa.");
+	            System.out.println("SELECT Realizado - Contratos obtenidos de forma exitosa.");
 	         }
-	         /*resultado.close();
-	         consulta.close();
-	         conexion.close();*/
 	      }catch(SQLException ex){
-	         throw new SQLException(ex);
-	      }
-	      return listContracts;
+              System.out.println("Error al obtener los contratos: " + ex.getCause());
+              throw new SQLException(ex);
+	      } catch (ParseException e) {
+              System.out.println("Error al parsear las fechas: " + e.getCause());
+              e.printStackTrace();
+          }
+        return listContracts;
 	   }
 }
