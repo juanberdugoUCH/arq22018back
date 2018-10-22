@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import entidades.Level;
+import entities.Level;
 import java.util.ArrayList;
 
 public class LevelRepository {
     private final String table = "Level";
 
-   public ArrayList<Level> recuperarNivel(Connection conexion) throws SQLException {
+   public ArrayList<Level> getLevels(Connection cnx) throws SQLException {
       ArrayList<Level> levelList = new ArrayList<Level>();
       try{
-         PreparedStatement query = conexion.prepareStatement("SELECT * FROM " + this.table);
+         PreparedStatement query = cnx.prepareStatement("SELECT * FROM " + this.table);
          ResultSet result = query.executeQuery();
          while(result.next()){
         	String pjName = result.getString("pjName");
@@ -23,8 +23,8 @@ public class LevelRepository {
             int bond = Integer.parseInt(result.getString("bond"));
             int currentPoints = Integer.parseInt(result.getString("currentPoints"));
             
-            Level nivel = new Level(pjName,level,superiorLimit,inferiorLimit,bond,currentPoints);
-            levelList.add(nivel);
+            Level lvl = new Level(pjName,level,superiorLimit,inferiorLimit,bond,currentPoints);
+            levelList.add(lvl);
             System.out.println("SELECT Realizado - Objeto producto realizado de forma exitosa.");
          }
          /*resultado.close();

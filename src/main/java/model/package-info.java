@@ -5,4 +5,4 @@
  * @author Gonzalo
  *
  */
-package controlador;
+package model;
