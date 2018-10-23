@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import dal.*;
-import entidades.Guild;
-import entidades.Level;
-import entidades.Member;
+import entities.*;
+
 
 public class PrincipalService {
 	
@@ -14,7 +13,7 @@ public class PrincipalService {
 	
 	public PrincipalService() {
 		
-		this.connection = new Conexion().obtener();
+		this.connection = new MySQLAccess().getConnection();
 		
 	}
 
@@ -30,21 +29,21 @@ public class PrincipalService {
 		 
 		 //Recupero todos los niveles
 		 try {
-			niveles = repoNivel.recuperarNivel(connection);
+			niveles = repoNivel.getLevels(connection);
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}
 		 
 		 //Recupero todos los Gremios
 		 try {
-			 gremios = repoGremio.recuperarNivel(connection);
+			 gremios = repoGremio.getGuilds(connection);
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
 		 
 		 //Recupero todos los Miembros
 		 try {
-			 miembros = repoMiembro.recuperarNivel(connection);
+			 miembros = repoMiembro.getMembers(connection);
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
