@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entidades.Guild;
+import entities.Guild;
 
 public class GuildRepository {
 	private final String table = "Guild";
 
-	   public ArrayList<Guild> recuperarNivel(Connection conexion) throws SQLException {
+	   public ArrayList<Guild> getGuilds(Connection cnx) throws SQLException {
 	      ArrayList<Guild> guildList = new ArrayList<Guild>();
 	      try{
-	         PreparedStatement query = conexion.prepareStatement("SELECT * FROM " + this.table);
+	         PreparedStatement query = cnx.prepareStatement("SELECT * FROM " + this.table);
 	         ResultSet result = query.executeQuery();
 	         while(result.next()){
 	        	int idGuild = Integer.parseInt(result.getString("idGuild"));

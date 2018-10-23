@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import entidades.Member;
+import entities.Member;
 
 public class MemberRepository {
    private final String table = "Member";
 
-   public ArrayList<Member> recuperarNivel(Connection conexion) throws SQLException {
+   public ArrayList<Member> getMembers(Connection cnx) throws SQLException {
       ArrayList<Member> memberList = new ArrayList<Member>();
       try{
-         PreparedStatement query = conexion.prepareStatement("SELECT * FROM " + this.table);
+         PreparedStatement query = cnx.prepareStatement("SELECT * FROM " + this.table);
          ResultSet result = query.executeQuery();
          while(result.next()){
             String nickname = result.getString("nickname");
@@ -22,8 +22,8 @@ public class MemberRepository {
             int level = Integer.parseInt(result.getString("level"));
             int totalPoints = Integer.parseInt(result.getString("totalPoints"));
             
-            Member mb = new Member(nickname,name,discord,level,totalPoints);
-            memberList.add(mb);
+            Member member = new Member(nickname,name,discord,level,totalPoints);
+            memberList.add(member);
             System.out.println("SELECT Realizado - Objeto producto realizado de forma exitosa.");
          }
       }catch(SQLException ex){

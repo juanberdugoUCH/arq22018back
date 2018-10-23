@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 public class Guild {
 	private String name;
