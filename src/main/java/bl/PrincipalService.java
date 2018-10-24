@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import dal.*;
 import entities.*;
+import model.ActivityDto;
+import model.PrincipalModel;
 
 
 public class PrincipalService {
@@ -64,5 +66,33 @@ public class PrincipalService {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+	}
+	
+	public ArrayList<PrincipalModel> GetDataMock(){
+		ArrayList<PrincipalModel> result = new ArrayList<PrincipalModel>();
+		
+		PrincipalModel miembroUno = new PrincipalModel();
+		miembroUno.ActivityPoint = new ArrayList<ActivityDto>();
+		ActivityDto dtoUno = new ActivityDto();
+		ActivityDto dtoDos = new ActivityDto();
+		
+		dtoDos.ActivityName = "pesca";
+		dtoDos.ActivityPoint = 20;
+		dtoUno.ActivityName = "caza";
+		dtoUno.ActivityPoint = 20;
+		miembroUno.ActivityPoint.add(dtoDos);
+		miembroUno.ActivityPoint.add(dtoUno);
+		PrincipalModel miembroDos = new PrincipalModel();
+		miembroDos.ActivityPoint = new ArrayList<ActivityDto>();
+		ActivityDto dtoTres = new ActivityDto();
+		dtoTres.ActivityName = "pesca";
+		dtoTres.ActivityPoint = 20;
+		miembroUno.ActivityPoint.add(dtoTres);
+		miembroDos.NameMember = "Gonzalo";
+		miembroDos.Level = 5;
+		
+		result.add(miembroUno);
+		result.add(miembroDos);
+		return result;
 	}
 }
