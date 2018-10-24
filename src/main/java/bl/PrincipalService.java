@@ -22,10 +22,14 @@ public class PrincipalService {
 		 ArrayList<Level> niveles = new ArrayList<Level>();
 		 ArrayList<Guild> gremios = new ArrayList<Guild>();
 		 ArrayList<Member> miembros = new ArrayList<Member>();
+		 ArrayList<Activities> actividades = new ArrayList<Activities>();
+		 ArrayList<Contract> contratos = new ArrayList<Contract>();
 		 
 		 LevelRepository repoNivel = new LevelRepository();
 		 MemberRepository repoMiembro = new MemberRepository();
 		 GuildRepository repoGremio = new GuildRepository();
+		 ActivitiesRepository repoActividad = new ActivitiesRepository();
+		 ContractRespository repoContrato = new ContractRespository();
 		 
 		 //Recupero todos los niveles
 		 try {
@@ -44,6 +48,19 @@ public class PrincipalService {
 		 //Recupero todos los Miembros
 		 try {
 			 miembros = repoMiembro.getMembers(connection);
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		//Recupero todos los Miembros
+		 try {
+			 contratos = repoContrato.getContracts(connection);
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		 
+		//Recupero todos los Miembros
+		 try {
+			 actividades = repoActividad.getActivities(connection);
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
