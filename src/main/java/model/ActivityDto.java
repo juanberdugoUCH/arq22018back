@@ -1,6 +1,6 @@
 package model;
 
 public class ActivityDto {
-public String ActivityName;
-public int ActivityPoint;
+    public String activityName;
+    public int activityValue;
 }

@@ -1,6 +1,9 @@
 package controlador;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+
+import model.PrincipalModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +24,9 @@ public class PrincipalController
     }
     
     @RequestMapping("/GetData")
-    public String GetData() {
+    public ArrayList<PrincipalModel> GetData() {
     	PrincipalService bl = new PrincipalService();
-    	bl.GetData();
-    	return "Servicio";
+    	ArrayList<PrincipalModel> n= bl.GetData();
+    	return n;
     }
 }

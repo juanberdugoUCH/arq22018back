@@ -23,6 +23,6 @@ public class springController {
     @RequestMapping("/getData")
     public ArrayList<PrincipalModel> getData() {
        PrincipalService service = new PrincipalService();
-       return service.GetDataMock();
+       return service.GetData();
     }
 }
