@@ -72,27 +72,42 @@ public class PrincipalService {
 		ArrayList<PrincipalModel> result = new ArrayList<PrincipalModel>();
 		
 		PrincipalModel miembroUno = new PrincipalModel();
-		miembroUno.ActivityPoint = new ArrayList<ActivityDto>();
-		ActivityDto dtoUno = new ActivityDto();
-		ActivityDto dtoDos = new ActivityDto();
-		
-		dtoDos.ActivityName = "pesca";
-		dtoDos.ActivityPoint = 20;
-		dtoUno.ActivityName = "caza";
-		dtoUno.ActivityPoint = 20;
-		miembroUno.ActivityPoint.add(dtoDos);
-		miembroUno.ActivityPoint.add(dtoUno);
-		PrincipalModel miembroDos = new PrincipalModel();
-		miembroDos.ActivityPoint = new ArrayList<ActivityDto>();
-		ActivityDto dtoTres = new ActivityDto();
-		dtoTres.ActivityName = "pesca";
-		dtoTres.ActivityPoint = 20;
-		miembroUno.ActivityPoint.add(dtoTres);
-		miembroDos.NameMember = "Gonzalo";
-		miembroDos.Level = 5;
-		
+		miembroUno.nombre="Ailin";
+		miembroUno.cantidadDiscord="2";
+		miembroUno.tpDiscord="34";
+		miembroUno.cantidadCasaMaritima="2";
+		miembroUno.tpCasaMaritima="32";
+		miembroUno.cantidadMision="12";
+		miembroUno.tpMision="12";
+		miembroUno.cantidadRenovacionContrato="123";
+		miembroUno.tpRenovacionContrato="13";
+		miembroUno.cantidadAyudarMiembro="123";
+		miembroUno.tpAyudarMiembro="23";
+		miembroUno.tp="123123";
+		miembroUno.nivelBono="6";
 		result.add(miembroUno);
-		result.add(miembroDos);
+		return result;
+	}
+	
+	public ArrayList<PrincipalModel> GetPuntosMock(){
+		ArrayList<PrincipalModel> result = new ArrayList<PrincipalModel>();
+		
+		PrincipalModel miembroUno = new PrincipalModel();
+		miembroUno.nombre="Ailin";
+		miembroUno.cantidadDiscord="2";
+		miembroUno.tpDiscord="34";
+		miembroUno.cantidadCasaMaritima="2";
+		miembroUno.tpCasaMaritima="32";
+		miembroUno.cantidadMision="12";
+		miembroUno.tpMision="12";
+		miembroUno.cantidadRenovacionContrato="123";
+		miembroUno.tpRenovacionContrato="13";
+		miembroUno.cantidadAyudarMiembro="123";
+		miembroUno.tpAyudarMiembro="23";
+		miembroUno.tp="123123";
+		miembroUno.nivelBono="6";
+		result.add(miembroUno);
+		
 		return result;
 	}
 }

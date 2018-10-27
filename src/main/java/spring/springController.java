@@ -25,4 +25,10 @@ public class springController {
        PrincipalService service = new PrincipalService();
        return service.GetDataMock();
     }
+    
+    @RequestMapping("/getPuntos")
+    public ArrayList<PrincipalModel> getPuntos() {
+       PrincipalService service = new PrincipalService();
+       return service.GetPuntosMock();
+    }
 }
