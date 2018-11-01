@@ -19,7 +19,9 @@ public class PrincipalService {
 		
 	}
 
-	public void GetData() {
+	public ArrayList<PrincipalModel> GetData() {
+		
+		ArrayList<PrincipalModel> result = new ArrayList<PrincipalModel>();
 		
 		 ArrayList<Level> niveles = new ArrayList<Level>();
 		 ArrayList<Guild> gremios = new ArrayList<Guild>();
@@ -66,6 +68,29 @@ public class PrincipalService {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+		 
+		 
+		 for(int i=0;i<=miembros.size();i++) {
+			 PrincipalModel m = new PrincipalModel();
+			 //Forma bien hecha por tema de dependencias.
+			 /*
+			 m.nombre = miembros.get(i).getName();
+			 m.tpDiscord = miembros.get(i).getDiscord().toString();
+			 m.cantidadCasaMaritima = miembros.get(i).getQuantityCM();
+			 m.tpCasaMaritima = miembros.get(i).getTpCM();
+			 m.cantidadMision = miembros.get(i).getQuantityMision();
+			 m.tpMision = miembros.get(i).getTpMision();
+			 m.cantidadRenovacionContrato = miembros.get(i).getQuantityRC();
+			 m.tpRenovacionContrato = miembros.get(i).getRenocationContract();
+			 m.cantidadAyudarMiembro = miembros.get(i).getQuantityAM();
+			 m.tpAyudarMiembro = miembros.get(i).getTpAM();
+			 m.tp = miembros.get(i).getTp();
+			 m.nivelBono = miembros.get(i).getLevel();
+			 */
+			 result.add(m);
+		 }
+		 
+		 return result;
 	}
 	
 	public ArrayList<PrincipalModel> GetDataMock(){
