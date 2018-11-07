@@ -36,10 +36,10 @@ public class springController {
                             String.format(template, name));
     }
     
-    @RequestMapping("/getData")
+    @RequestMapping("/getMemberActivity")
     public ArrayList<PrincipalModel> getData() {
        PrincipalService service = new PrincipalService();
-       return service.GetDataMock();
+       return service.GetMemberActivity();
     }
     
     @RequestMapping("/getPuntos")
