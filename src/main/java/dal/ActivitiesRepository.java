@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import entities.Activities;
 
 public class ActivitiesRepository {
-	private final String table = "Activities";
+	private final String table = "Activty";
 	public ArrayList<Activities> getActivities(Connection cnx) throws SQLException {
 		ArrayList<Activities> listActivities = new ArrayList<Activities>();
 	      try{
@@ -15,16 +15,16 @@ public class ActivitiesRepository {
 	         ResultSet result = query.executeQuery();
 	         while(result.next()){
 	        	 
-	        	 String activityName =result.getNString("activityName");
-	        	 int numPoints= Integer.parseInt(result.getNString("numPoints"));
-	        	 int maxPoints= Integer.parseInt(result.getNString("maxPoints"));
+	        	 Integer idActivity = result.getInt("idActivity");
+	        	 String activityName =result.getString("nameActivity");
+	        	 double valueActivity= result.getDouble("valueActivity");
 	            
-	            Activities activity = new Activities(activityName, numPoints, maxPoints);
+	            Activities activity = new Activities(idActivity, activityName, valueActivity);
 	            listActivities.add(activity);
-	            System.out.println("SELECT Realizado - Contratos obtenidos de forma exitosa.");
+	            System.out.println("SELECT Realizado - Activities obtenidos de forma exitosa...");
 	         }
 	      }catch(SQLException ex){
-            System.out.println("Error al obtener los contratos: " + ex.getCause());
+            System.out.println("Error al obtener las Activities: " + ex.getCause());
             throw new SQLException(ex);
 	      } 
       return listActivities;

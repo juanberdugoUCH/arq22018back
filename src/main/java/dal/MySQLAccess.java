@@ -10,9 +10,9 @@ public class MySQLAccess {
       if (cnn == null) {
     	  try{
 	            cnn = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/ravenbunny", "ravenbunny", "ravenbunny");
-	            System.out.println("Connected");
+	            System.out.println("Connected...");
             }catch (SQLException ex) {
-        	 System.out.print(ex);
+        	 System.out.print("ERROR ENCONTRADO: "+ex);
         	 }
       }
       return cnn;

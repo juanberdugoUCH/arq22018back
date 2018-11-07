@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import dal.*;
 import entities.*;
-import model.ActivityDto;
 import model.PrincipalModel;
 
 
@@ -19,80 +18,96 @@ public class PrincipalService {
 		
 	}
 
-	public void GetData() {
+	public ArrayList<PrincipalModel> GetMemberActivity(){
 		
-		 ArrayList<Level> niveles = new ArrayList<Level>();
-		 ArrayList<Guild> gremios = new ArrayList<Guild>();
-		 ArrayList<Member> miembros = new ArrayList<Member>();
-		 ArrayList<Activities> actividades = new ArrayList<Activities>();
-		 ArrayList<Contract> contratos = new ArrayList<Contract>();
-		 
-		 LevelRepository repoNivel = new LevelRepository();
-		 MemberRepository repoMiembro = new MemberRepository();
-		 GuildRepository repoGremio = new GuildRepository();
-		 ActivitiesRepository repoActividad = new ActivitiesRepository();
-		 ContractRespository repoContrato = new ContractRespository();
-		 
-		 //Recupero todos los niveles
-		 try {
-			niveles = repoNivel.getLevels(connection);
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		 
-		 //Recupero todos los Gremios
-		 try {
-			 gremios = repoGremio.getGuilds(connection);
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		 
-		 //Recupero todos los Miembros
-		 try {
-			 miembros = repoMiembro.getMembers(connection);
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		//Recupero todos los Miembros
-		 try {
-			 contratos = repoContrato.getContracts(connection);
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		 
-		//Recupero todos los Miembros
-		 try {
-			 actividades = repoActividad.getActivities(connection);
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-	}
-	
-	public ArrayList<PrincipalModel> GetDataMock(){
 		ArrayList<PrincipalModel> result = new ArrayList<PrincipalModel>();
 		
-		PrincipalModel miembroUno = new PrincipalModel();
-		miembroUno.ActivityPoint = new ArrayList<ActivityDto>();
-		ActivityDto dtoUno = new ActivityDto();
-		ActivityDto dtoDos = new ActivityDto();
+		MemberRepository repoMembers = new MemberRepository();
+		ActivitiesRepository repoActivities = new ActivitiesRepository();
+		MemberActivitiesRepository repoMemberActivities = new MemberActivitiesRepository();
 		
-		dtoDos.ActivityName = "pesca";
-		dtoDos.ActivityPoint = 20;
-		dtoUno.ActivityName = "caza";
-		dtoUno.ActivityPoint = 20;
-		miembroUno.ActivityPoint.add(dtoDos);
-		miembroUno.ActivityPoint.add(dtoUno);
-		PrincipalModel miembroDos = new PrincipalModel();
-		miembroDos.ActivityPoint = new ArrayList<ActivityDto>();
-		ActivityDto dtoTres = new ActivityDto();
-		dtoTres.ActivityName = "pesca";
-		dtoTres.ActivityPoint = 20;
-		miembroUno.ActivityPoint.add(dtoTres);
-		miembroDos.NameMember = "Gonzalo";
-		miembroDos.Level = 5;
+		ArrayList<Member> member = new ArrayList<Member>();
+		ArrayList<Activities> activities = new ArrayList<Activities>();
+		ArrayList<MemberActivities> memberActivities = new ArrayList<MemberActivities>();
 		
-		result.add(miembroUno);
-		result.add(miembroDos);
+		try {
+			member = repoMembers.getMembers(connection);
+			activities = repoActivities.getActivities(connection);
+			memberActivities = repoMemberActivities.getMemberActivities(connection);
+			
+		} catch (SQLException e) {
+			System.out.println("CONNECTION FAIL: "+e);
+		}
+		for(int i = 0; i < member.size(); i++) {
+			
+			PrincipalModel miembroFinal = new PrincipalModel();
+			//Inicializamos las variables en  = 0 para evitar error de nullPointer...
+			miembroFinal.cantDiscord = 0;
+			miembroFinal.cantCasaMaritima = 0;
+			miembroFinal.cantidadMision = 0;
+			miembroFinal.cantRenovacionContrato= 0;
+			miembroFinal.cantAyudarMiembro = 0;
+			
+			//Asignamos los datos del Member
+			miembroFinal.nickname = member.get(i).getNameFamily();
+			miembroFinal.name = member.get(i).getNameCharacter();
+			
+			for( int j = 0; j<memberActivities.size(); j++) {
+				
+				if(member.get(i).getIdUsser().equals(memberActivities.get(j).getIdUsser())) {
+					//Contamos la cantidad de veces que realizan los miembros una actividad...
+					if(memberActivities.get(j).getIdActivity().equals(2))
+						miembroFinal.cantDiscord += 1;
+					
+					if(memberActivities.get(j).getIdActivity().equals(3))
+						miembroFinal.cantCasaMaritima += 1;
+					
+					if(memberActivities.get(j).getIdActivity().equals(4))
+						miembroFinal.cantidadMision += 1;
+					
+					if(memberActivities.get(j).getIdActivity().equals(5))
+						miembroFinal.cantRenovacionContrato += 1;
+					
+					if(memberActivities.get(j).getIdActivity().equals(6))
+						miembroFinal.cantAyudarMiembro += 1;	
+					
+				}
+				
+				for( int k = 0; k<activities.size(); k++) {
+					//Asignamos los puntos...
+					if(activities.get(k).getIdActivity().equals(2))
+					miembroFinal.tpDiscord = (int) miembroFinal.cantDiscord * activities.get(k).getValueActivity();
+					
+					if(activities.get(k).getIdActivity().equals(3))
+					miembroFinal.tpCasaMaritima =  (int) miembroFinal.cantCasaMaritima * activities.get(k).getValueActivity();
+					
+					if(activities.get(k).getIdActivity().equals(4))
+					miembroFinal.tpMision =  miembroFinal.cantidadMision * activities.get(k).getValueActivity();
+					
+					if(activities.get(k).getIdActivity().equals(5))
+					miembroFinal.tpRenovacionContrato = (int)  miembroFinal.cantRenovacionContrato * activities.get(k).getValueActivity();
+					
+					if(activities.get(k).getIdActivity().equals(6))
+					miembroFinal.tpAyudaMiembro = (int)  miembroFinal.cantAyudarMiembro * activities.get(k).getValueActivity();
+					
+					}
+			}
+			
+			//Sumamos el total de los puntos obtenidos...
+			miembroFinal.tp = miembroFinal.tpDiscord + miembroFinal.tpCasaMaritima + miembroFinal.tpMision + miembroFinal.tpRenovacionContrato + miembroFinal.cantAyudarMiembro;
+			
+			//Asignamos el valor del nivel del bono en base a la sumatoria total...
+			if(miembroFinal.tp<=10) {
+				miembroFinal.nivelBono = (int)  miembroFinal.tp;
+			}else {
+				miembroFinal.nivelBono = 10;
+			}
+			
+			//Agregamos al primer miembro de la lista...
+			result.add(miembroFinal);
+		}
+
 		return result;
 	}
+
 }

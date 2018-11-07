@@ -9,22 +9,23 @@ import entities.Member;
 
 public class MemberRepository {
    private final String table = "Member";
-
+   
    public ArrayList<Member> getMembers(Connection cnx) throws SQLException {
-      ArrayList<Member> memberList = new ArrayList<Member>();
+	   
+	  ArrayList<Member> memberList = new ArrayList<Member>();
       try{
          PreparedStatement query = cnx.prepareStatement("SELECT * FROM " + this.table);
          ResultSet result = query.executeQuery();
          while(result.next()){
-            String nickname = result.getString("nickname");
-            String name = result.getString("name");
-            Boolean discord = result.getBoolean("discord");
-            int level = Integer.parseInt(result.getString("level"));
-            int totalPoints = Integer.parseInt(result.getString("totalPoints"));
+        	 
+        	Integer idUsser = result.getInt("idUsser");
+            String nameFamily = result.getString("nameFamily");
+            String nameCharacter = result.getString("nameCharacter");
+
             
-            Member member = new Member(nickname,name,discord,level,totalPoints);
+            Member member = new Member(idUsser, nameFamily, nameCharacter);
             memberList.add(member);
-            System.out.println("SELECT Realizado - Objeto producto realizado de forma exitosa.");
+            System.out.println("SELECT Realizado - Objeto Member realizado de forma exitosa.");
          }
       }catch(SQLException ex){
          throw new SQLException(ex);

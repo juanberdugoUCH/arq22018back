@@ -1,15 +1,22 @@
 package entities;
 
 public class Activities {
+	private Integer idActivity;
 	private String activityName;
-	private int numPoints;
-	private int maxPoints;
+	private double valueActivity;
 
-	public Activities(String activityName, int numPoints, int maxPoints) {
-		super();
+	public Activities(Integer idActivity, String activityName, double valueActivity) {
+		this.idActivity = idActivity;
 		this.activityName = activityName;
-		this.numPoints = numPoints;
-		this.maxPoints = maxPoints;
+		this.valueActivity = valueActivity;
+	}
+
+	public Integer getIdActivity() {
+		return idActivity;
+	}
+
+	public void setIdActivity(Integer idActivity) {
+		this.idActivity = idActivity;
 	}
 
 	public String getActivityName() {
@@ -20,19 +27,12 @@ public class Activities {
 		this.activityName = activityName;
 	}
 
-	public int getNumPoints() {
-		return numPoints;
+	public double getValueActivity() {
+		return valueActivity;
 	}
 
-	public void setNumPoints(int numPoints) {
-		this.numPoints = numPoints;
+	public void setValueActivity(double valueActivity) {
+		this.valueActivity = valueActivity;
 	}
 
-	public int getMaxPoints() {
-		return maxPoints;
-	}
-
-	public void setMaxPoints(int maxPoints) {
-		this.maxPoints = maxPoints;
-	}
 }

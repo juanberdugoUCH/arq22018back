@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,10 +21,10 @@ public class PrincipalController
                             String.format(template, name));
     }
     
-    @RequestMapping("/GetData")
-    public String GetData() {
+    @RequestMapping("/getMemberActivity")
+    public String GetData() throws SQLException {
     	PrincipalService bl = new PrincipalService();
-    	bl.GetData();
+    	bl.GetMemberActivity();
     	return "Servicio";
     }
 }
